@@ -8,12 +8,11 @@ function App() {
   const [cep, setCep] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  async function handleSearch() {
-    if (input === "") {
-      alert("Preencha com um CEP!");
-      return;
-    }
+  function isInputValid(input) {
+    return input !== "" && !isNaN(input);
+  }
 
+  async function handleSearch() {
     try {
       const response = await api.get(`${input}/json`);
       setCep(response.data);
@@ -25,18 +24,14 @@ function App() {
   }
 
   function clickBuscar() {
-    if (input !== "") {
-      handleSearch();
-      setIsOpen(true);
+    const isValid = isInputValid(input);
+    if (!isValid) {
+      alert("Preencha com um CEP válido!");
       return;
     }
-    if (input === "") {
-      alert("Preencha com um CEP!");
-      setInput("");
-      return;
-    } else {
-      setIsOpen(false);
-    }
+
+    handleSearch();
+    setIsOpen(true); 
   }
 
   return (
@@ -45,10 +40,10 @@ function App() {
 
       <div className="form-floating mb-3">
         <input
-          type="email"
+          type="text"
           className="form-control"
           id="floatingInput"
-          placeholder="name@example.com"
+          placeholder="Digite o CEP"
           value={input}
           onChange={(event) => setInput(event.target.value)}
         ></input>
@@ -62,7 +57,9 @@ function App() {
       <Modal isOpen={isOpen}>
         <div id="modalContainer">
           <div id="modalContent">
-          <button onClick={() => setIsOpen(false)}>Fechar modal</button>
+            <div id="closeModal">
+            <p id="close" onClick={() => setIsOpen(false)}>X</p>
+            </div>
             <h2>CEP: {cep.cep}</h2>
             <span>{cep.logradouro}</span>
             <span>Complemento: {cep.complemento}</span>
@@ -70,7 +67,6 @@ function App() {
             <span>
               {cep.localidade} - {cep.uf}
             </span>
-            
           </div>
         </div>
       </Modal>
