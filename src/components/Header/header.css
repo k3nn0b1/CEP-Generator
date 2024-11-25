@@ -1,0 +1,20 @@
+header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#title{
+  font-weight: 600;
+  color: rgb(41, 41, 41);
+}
+
+#subtitle{
+  max-width: 400px;
+  font-size:large;
+  text-align: center;
+  margin-top: 10px;
+  color: rgb(77, 77, 77);
+}

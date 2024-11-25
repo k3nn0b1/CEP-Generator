@@ -1,7 +1,8 @@
 import "./style.css";
 import { useState } from "react";
 import api from "./services/api";
-import Modal from "./components/Modal";
+import Modal from "./components/Modal/Modal";
+import Header from "./components/Header/Header";
 
 function App() {
   const [input, setInput] = useState("");
@@ -36,7 +37,7 @@ function App() {
 
   return (
     <div id="container">
-      <h1 id="title">Buscador de CEP</h1>
+      <Header/>
 
       <div className="form-floating mb-3">
         <input
